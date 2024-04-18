@@ -2,8 +2,8 @@
     import {convertStringToBigInt} from "$lib";
 
     let nText: string = "15"
-    let eText: string = "9"
-    let plaintextText: string = "2"
+    let eText: string = "7"
+    let plaintextText: string = "18"
     $: n = convertStringToBigInt(nText);
     $: e = convertStringToBigInt(eText);
     $: plaintext = convertStringToBigInt(plaintextText);

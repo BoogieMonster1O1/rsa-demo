@@ -21,20 +21,28 @@
 </script>
 
 <div class="flex-1 flex flex-col items-center justify-center">
-    <h1 class="text-3xl font-semibold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-yellow-500">RSA Private Key Demo</h1>
+    <h1 class="text-3xl mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-yellow-500">RSA Private Key Demo</h1>
 
     <div class="w-80 flex-col gap-2">
-        <label for="n" id="n-label">Value of n:</label>
-        <input type="text" id="n" class="w-full px-3 py-2 mb-4" bind:value={nText} placeholder="Enter n" />
+        <div class="flex flex-col">
+            <label for="n" id="n-label">Value of n:</label>
+            <input type="text" id="n" class="w-full px-3 py-2 mb-4" bind:value={nText} placeholder="Enter n" />
+        </div>
 
-        <label for="e" id="e-label">Value of d:</label>
-        <input type="text" id="e" class="w-full px-3 py-2 mb-4" bind:value={dText} placeholder="Enter d" />
+        <div class="flex flex-col">
+            <label for="e" id="e-label">Value of d:</label>
+            <input type="text" id="e" class="w-full px-3 py-2 mb-4" bind:value={dText} placeholder="Enter d" />
+        </div>
 
-        <label for="ciphertext" id="ciphertext-label">Plaintext:</label>
-        <input type="text" id="ciphertext" class="w-full px-3 py-2 mb-4" bind:value={ciphertextText} placeholder="Enter ciphertext" />
+        <div class="flex flex-col">
+            <label for="ciphertext" id="ciphertext-label">Ciphertext:</label>
+            <input type="text" id="ciphertext" class="w-full px-3 py-2 mb-4" bind:value={ciphertextText} placeholder="Enter ciphertext" />
+        </div>
 
-        <label for="plaintext" id="plaintext-label">Ciphertext:</label>
-        <input type="text" id="plaintext" class="w-full px-3 py-2 mb-4" readonly bind:value={plaintextText} />
+        <div class="flex flex-col">
+            <label for="plaintext" id="plaintext-label">Plaintext:</label>
+            <input type="text" id="plaintext" class="w-full px-3 py-2 mb-4" readonly bind:value={plaintextText} />
+        </div>
     </div>
     {#if plainError}
         <p class="text-red-500">Overflow Error! Use smaller numbers</p>

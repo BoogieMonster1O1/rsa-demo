@@ -8,7 +8,7 @@
 
 <div class="flex flex-col min-h-screen items-center">
     <div class="flex flex-row justify-center gap-8 text-xl p-4">
-        <a href="/">Demo</a>
+        <a href="/">Key Pair</a>
         <a href="/public">Encrypt</a>
         <a href="/private">Decrypt</a>
     </div>

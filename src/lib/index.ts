@@ -62,3 +62,11 @@ export function generateTwoPrimes(from: number, to: number): (number | null)[] {
     const prime2 = generatePrime(from, to);
     return [prime1, prime2];
 }
+
+export function convertStringToBigInt(str: string): bigint {
+    try {
+        return BigInt(str);
+    } catch (error) {
+        return 1n;
+    }
+}

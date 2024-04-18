@@ -14,3 +14,9 @@ body {
     @apply text-black dark:text-white;
     @apply bg-white dark:bg-neutral-900;
 }
+
+input {
+    @apply text-black dark:text-white;
+    @apply bg-white dark:bg-neutral-700;
+    @apply rounded-md border-black dark:border-neutral-800
+}

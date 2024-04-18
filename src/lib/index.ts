@@ -65,7 +65,10 @@ export function generateTwoPrimes(from: number, to: number): (number | null)[] {
 
 export function convertStringToBigInt(str: string): bigint {
     try {
-        return BigInt(str);
+        let e = BigInt(str);
+        if (e < 0n) e = -e;
+        if (e === 0n) e = 1n;
+        return e;
     } catch (error) {
         return 1n;
     }

@@ -7,8 +7,17 @@
     $: n = convertStringToBigInt(nText);
     $: e = convertStringToBigInt(eText);
     $: plaintext = convertStringToBigInt(plaintextText);
-    $: ciphertext = (plaintext ** e) % n
+    $: ciphertext = calculateCiphertext(plaintext, e, n);
     $: ciphertextText = ciphertext.toString()
+    $: cipherError = ciphertext === -1n
+
+    function calculateCiphertext(plaintext: bigint, e: bigint, n: bigint): bigint {
+        try {
+            return (plaintext ** e) % n;
+        } catch (e) {
+            return -1n;
+        }
+    }
 </script>
 
 <div class="flex-1 flex flex-col items-center justify-center">
@@ -27,4 +36,9 @@
         <label for="ciphertext" id="ciphertext-label">Ciphertext:</label>
         <input type="text" id="ciphertext" class="w-full px-3 py-2 mb-4" readonly bind:value={ciphertextText} />
     </div>
+    {#if cipherError}
+        <p class="text-red-500">Overflow Error! Use smaller numbers</p>
+    {:else}
+        <p class="h-[1.4em]"></p>
+    {/if}
 </div>

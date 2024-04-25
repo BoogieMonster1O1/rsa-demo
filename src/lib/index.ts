@@ -1,13 +1,29 @@
-export function isPrime(num: number): boolean {
-    if (num <= 1) return false;
-    if (num <= 3) return true;
-    if (num % 2 === 0 || num % 3 === 0) return false;
-    let i = 5;
-    while (i * i <= num) {
-        if (num % i === 0 || num % (i + 2) === 0) return false;
-        i += 6;
-    }
+export function isPrime(n) {
+  // Convert n to a BigInt if it's not already
+  n = BigInt(n);
+
+  // Check if n is 2 or 3
+  if (n === 2n || n === 3n) {
     return true;
+  }
+
+  // Check if n is divisible by 2 or 3
+  if (n % 2n === 0n || n % 3n === 0n) {
+    return false;
+  }
+
+  // Iterate through potential factors starting from 5
+  for (let i = 5n; i * i <= n; i += 6n) {
+    if (n % i === 0n || n % (i + 2n) === 0n) {
+      console.log("kek")
+      return false;
+    }
+  }
+
+  console.log("e");
+
+  // If n passes all checks, it is prime
+  return true;
 }
 
 export function coprime(a: number, b: number): boolean {
@@ -19,14 +35,14 @@ export function coprime(a: number, b: number): boolean {
     return a === 1;
 }
 
-export function modInverse(e: number, phi: number): number | null {
-    let a = e;
-    let b = phi;
-    let [x, y, u, v] = [0, 1, 1, 0];
+export function modInverse(e: bigint, phi: bigint): bigint | null {
+    let a: bigint = e;
+    let b: bigint = phi;
+    let [x, y, u, v] = [0n, 1n, 1n, 0n];
 
-    while (a !== 0) {
-        let q = Math.floor(b / a);
-        let r = b % a;
+    while (a !== 0n) {
+        let q: bigint = BigInt(b) / BigInt(a);
+        let r = BigInt(b) % BigInt(a);
         let m = x - u * q;
         let n = y - v * q;
 
@@ -39,27 +55,52 @@ export function modInverse(e: number, phi: number): number | null {
     }
 
     const gcd = b;
-    if (gcd !== 1) {
+    if (gcd !== 1n) {
         return null; // No mod inverse
     } else {
         return (x % phi + phi) % phi;
     }
 }
 
-export function generatePrime(from: number, to: number): number | null {
-    const range = to - from + 1;
-    const randomNum = Math.floor(Math.random() * range) + from;
+export function generatePrime(from: bigint, to: bigint): bigint | null {
+    const range = to - from + 1n;
+    const randomNum = BigInt(Math.floor(Math.random() * Number(range))) + from;
 
-    for (let i = 0; i < range; i++) {
+    for (let i = 0n; i < range; i++) {
         const num = (randomNum + i) % range + from;
         if (isPrime(num)) return num;
     }
     return null; // No prime number found
 }
 
-export function generateTwoPrimes(from: number, to: number): (number | null)[] {
-    const prime1 = generatePrime(from, to);
-    const prime2 = generatePrime(from, to);
+function generateRandomPrimeInRange(from: bigint, to: bigint): bigint | null {
+    if (from >= to) {
+        return null;
+    }
+
+    const range = to - from + 1n;
+    const maxAttempts = 1000; // Maximum attempts to find a prime number
+    let attempt = 0;
+
+    while (attempt < maxAttempts) {
+        const randomNumber = BigInt(Math.floor(Math.random() * Number(range))) + from;
+	console.log(randomNumber);
+        if (isPrime(randomNumber)) {
+            return randomNumber;
+        }
+        attempt++;
+    }
+
+    console.log("howwww");
+
+    return null; // Failed to find a prime within the given range after maximum attempts
+}
+
+export function generateTwoPrimes(from: bigint, to: bigint): (bigint)[] {
+    const prime1 = generateRandomPrimeInRange(from, to)!;
+    const prime2 = generateRandomPrimeInRange(from, to)!;
+    console.log(prime1);
+    console.log(prime2);
     return [prime1, prime2];
 }
 

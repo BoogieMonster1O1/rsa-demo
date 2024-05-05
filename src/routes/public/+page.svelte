@@ -8,7 +8,7 @@
   $: n = convertStringToBigInt(nText);
   $: e = convertStringToBigInt(eText);
   $: plaintext = stringToBigIntOrConvert(plaintextText);
-  $: ciphertext = calculateCiphertext(plaintext, e, n);
+  $: ciphertext = modExp(plaintext, e, n);
   $: ciphertextText = ciphertext.toString()
   $: cipherError = ciphertext === -1n
 
@@ -18,6 +18,20 @@
     } catch (e) {
       return -1n;
     }
+  }
+
+  function modExp(P: bigint, e: bigint, n: bigint): bigint {
+    if (n === 1n) return 0n; // If modulus is 1, result is always 0
+    let result = 1n;
+    P = P % n; // Reduce base if it's larger than modulus
+    while (e > 0n) {
+      // If exponent is odd, multiply base with result
+      if (e % 2n == 1n) result = (result * P) % n;
+      // Exponent must be even now
+      e = e >> 1n; // Divide exponent by 2
+      P = (P * P) % n; // Change base to square of base
+    }
+    return result;
   }
 
   function stringToBigIntOrConvert(str: string) {

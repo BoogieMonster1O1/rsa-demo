@@ -1,46 +1,46 @@
 <script lang="ts">
+  import {generateTwoPrimes, isPrime, modInverse} from "$lib";
 
- import {generateTwoPrimes, isPrime, modInverse} from "$lib";
+  interface KeySize {
+    min: bigint;
+    max: bigint;
+  }
 
- interface KeySize {
-     min: bigint;
-     max: bigint;
- }
+  function size(min: bigint, max: bigint): KeySize {
+    return {min, max};
+  }
 
- function size(min: bigint, max: bigint): KeySize {
-     return {min, max};
- }
+  const keySizes: { [key: string]: KeySize } = {};
+  keySizes["Yocto"] = size(1n, 25n);
+  keySizes["Zepto"] = size(26n, 100n);
+  keySizes["Atto"]  = size(101n, 1000n);
+  keySizes["Femto"] = size(1001n, 10000n);
+  keySizes["Pico"]  = size(10001n, 100000n);
+  keySizes["Nano"]  = size(100001n, 1000000n);
+  keySizes["Micro"] = size(1000000n, 10000000n);
+  keySizes["Mini"] = size(1000000000000000n, 10000000000000000n);
 
- const keySizes: { [key: string]: KeySize } = {};
- keySizes["Yocto"] = size(1n, 25n);
- keySizes["Zepto"] = size(26n, 100n);
- keySizes["Atto"]  = size(101n, 1000n);
- keySizes["Femto"] = size(1001n, 10000n);
- keySizes["Pico"]  = size(10001n, 100000n);
- keySizes["Nano"]  = size(100001n, 1000000n);
- keySizes["Micro"] = size(1000000n, 10000000n);
+  let selectedKeySize = "Zepto";
+  $: [min, max] = [keySizes[selectedKeySize].min, keySizes[selectedKeySize].max];
+  $: [p, q] = genPrimes(min, max);
+  $: n = p * q;
+  $: phi = (BigInt(p) - 1n) * (BigInt(q) - 1n);
+  $: e = max > 50000 ? 65537n : 3n;
+  $: d = modInverse(e, phi);
 
- let selectedKeySize = "Zepto";
- $: [min, max] = [keySizes[selectedKeySize].min, keySizes[selectedKeySize].max];
- $: [p, q] = genPrimes(min, max);
- $: n = p * q;
- $: phi = (BigInt(p) - 1n) * (BigInt(q) - 1n);
- $: e = max > 50000 ? 65537n : 3n;
- $: d = modInverse(e, phi);
-
- function genPrimes(min: bigint, max: bigint) {
-     while (true) {
-	 let [a, b] = generateTwoPrimes(min, max);
-	 d = modInverse(3n, (a - 1n) * (b - 1n));
-	 if (d !== null) {
-	     return [a, b];
-	 }
-     }
- }
- 
- function reset() {
-     [p, q] = genPrimes(min, max);
- }
+  function genPrimes(min: bigint, max: bigint) {
+    while (true) {
+	    let [a, b] = generateTwoPrimes(min, max);
+	    d = modInverse(3n, (a - 1n) * (b - 1n));
+	    if (d !== null) {
+	      return [a, b];
+	    }
+    }
+  }
+  
+  function reset() {
+    [p, q] = genPrimes(min, max);
+  }
 
 </script>
 

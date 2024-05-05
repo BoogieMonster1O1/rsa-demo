@@ -9,7 +9,7 @@
   $: n = convertStringToBigInt(nText);
   $: d = convertStringToBigInt(dText);
   $: ciphertext = convertStringToBigInt(ciphertextText);
-  $: plaintext = calculatePlaintext(ciphertext, d, n);
+  $: plaintext = modExp(ciphertext, d, n);
   $: plaintextText = bigIntToStringOrConvert(plaintext)
   $: plaintextAct = decodeText ? bigIntToStringOrConvert(plaintext) : plaintext.toString()
   $: plainError = plaintext === -1n
@@ -22,11 +22,25 @@
     }
   }
 
+  function modExp(C: bigint, d: bigint, n: bigint): bigint {
+    if (n === 1n) return 0n; // If modulus is 1, result is always 0
+    let result = 1n;
+    C = C % n; // Reduce base if it's larger than modulus
+    while (d > 0n) {
+      // If exponent is odd, multiply base with result
+      if (d % 2n == 1n) result = (result * C) % n;
+      // Exponent must be even now
+      d = d >> 1n; // Divide exponent by 2
+      C = (C * C) % n; // Change base to square of base
+    }
+    return result;
+  }
+
   function bigIntToStringOrConvert(bigInt: bigint) {
     const str = bigIntToString(bigInt);
 
     if (/^[0-9a-zA-Z]+$/.test(str)) {
-      return str;
+      return str.split('').reverse().join('');
     } else {
       return bigInt.toString();
     }

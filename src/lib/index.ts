@@ -35,7 +35,6 @@ export function isPrime(n) {
   // Iterate through potential factors starting from 5
   for (let i = 5n; i * i <= n; i += 6n) {
     if (n % i === 0n || n % (i + 2n) === 0n) {
-      console.log("kek")
       return false;
     }
   }
@@ -102,7 +101,6 @@ function generateRandomPrimeInRange(from: bigint, to: bigint): bigint | null {
 
     while (attempt < maxAttempts) {
         const randomNumber = BigInt(Math.floor(Math.random() * Number(range))) + from;
-	console.log(randomNumber);
         if (isPrime(randomNumber)) {
             return randomNumber;
         }

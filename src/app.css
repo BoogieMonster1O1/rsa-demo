@@ -9,7 +9,7 @@
 }
 
 body {
-    font-family: "San Francisco", sans-serif;
+    font-family: "SF-Pro", "BlinkMacSystemFont", "San Francisco", sans-serif;
 
     @apply text-black dark:text-white;
     @apply bg-white dark:bg-neutral-900;

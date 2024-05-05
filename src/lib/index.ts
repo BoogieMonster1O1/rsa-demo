@@ -1,3 +1,23 @@
+export function stringToBigInt(str) {
+    const bytes = new TextEncoder().encode(str);
+    
+    let result = 0n;
+    for (let i = 0; i < bytes.length; i++) {
+        result += BigInt(bytes[i]) << BigInt(8 * i);
+    }
+    return result;
+}
+
+export function bigIntToString(bigInt) {
+    let bytes = [];
+    while (bigInt > 0n) {
+        bytes.push(Number(bigInt & 255n)); // Extract the lowest byte
+        bigInt >>= 8n; // Shift right by 8 bits
+    }
+
+    return new TextDecoder().decode(Uint8Array.from(bytes.reverse()));
+}
+
 export function isPrime(n) {
   // Convert n to a BigInt if it's not already
   n = BigInt(n);
@@ -19,8 +39,6 @@ export function isPrime(n) {
       return false;
     }
   }
-
-  console.log("e");
 
   // If n passes all checks, it is prime
   return true;
@@ -91,16 +109,12 @@ function generateRandomPrimeInRange(from: bigint, to: bigint): bigint | null {
         attempt++;
     }
 
-    console.log("howwww");
-
     return null; // Failed to find a prime within the given range after maximum attempts
 }
 
 export function generateTwoPrimes(from: bigint, to: bigint): (bigint)[] {
     const prime1 = generateRandomPrimeInRange(from, to)!;
     const prime2 = generateRandomPrimeInRange(from, to)!;
-    console.log(prime1);
-    console.log(prime2);
     return [prime1, prime2];
 }
 

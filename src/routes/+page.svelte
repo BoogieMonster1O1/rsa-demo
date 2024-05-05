@@ -45,26 +45,27 @@
 </script>
 
 <div class="flex flex-col flex-1 items-center justify-center">
-    <h1 class="text-3xl mb-4 bg-gradient-to-r from-purple-500 to-sky-600 text-transparent bg-clip-text">RSA Key Pair Demo</h1>
+  <h1 class="text-3xl mb-4 bg-gradient-to-r from-purple-500 to-sky-600 text-transparent bg-clip-text">Generate Key Pair
+  </h1>
 
-    <div class="w-80 flex flex-col gap-2">
-        <label for="size" id="size-label">Key size</label>
-        <select id="size" bind:value={selectedKeySize} class="p-2 mb-4">
-            {#each Object.keys(keySizes) as key}
-                <option value={key}>{key}</option>
-            {/each}
-        </select>
+  <div class="w-80 lg:text-xl flex flex-col gap-2">
+    <label for="size" id="size-label">Key size</label>
+    <select id="size" bind:value={selectedKeySize} class="p-2 mb-4">
+      {#each Object.keys(keySizes) as key}
+        <option value={key}>{key}</option>
+      {/each}
+    </select>
 
-	<p>p = {p}</p>
-	<p>q = {q}</p>
-	<p>n = p * q = {n}</p>
-	<p>φ(n) = (p - 1) * (q - 1) = {phi}</p>
-	<p>e = {e}</p>
-	<p>d = modInverse(e, φ(n)) = {d}</p>
+	  <p>p = {p}</p>
+	  <p>q = {q}</p>
+	  <p>n = p * q = {n}</p>
+	  <p>φ(n) = (p - 1) * (q - 1) = {phi}</p>
+	  <p>e = {e}</p>
+	  <p>d = modInverse(e, φ(n)) = {d}</p>
 
-	<p>Public key: (n, e) = ({n}, {e})</p>
-	<p>Private key: (n, d) = ({n}, {d})</p>
+	  <p>Public key: (n, e) = ({n}, {e})</p>
+	  <p>Private key: (n, d) = ({n}, {d})</p>
 
-	<button class="p-2 bg-blue-500 text-white rounded" on:click={reset}>Generate new key pair</button>
-    </div>
+	  <button class="p-2 bg-blue-500 text-white rounded" on:click={reset}>Generate new key pair</button>
+  </div>
 </div>

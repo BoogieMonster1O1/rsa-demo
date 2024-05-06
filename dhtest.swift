@@ -37,7 +37,7 @@ if let g = Int(readLine() ?? ""), g > 1 {
         for a in 2..<p {
             for b in 2..<p {
                 let sharedSecret = computeSharedSecret(g: g, p: p, a: a, b: b)
-                #print("For a = \(a), b = \(b), shared secret:", sharedSecret)
+                // print("For a = \(a), b = \(b), shared secret:", sharedSecret)
             }
         }
     } else {

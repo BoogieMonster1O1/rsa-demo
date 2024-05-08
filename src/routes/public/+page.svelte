@@ -70,7 +70,7 @@
 
     <div class="flex flex-col">
       <label for="ciphertext" id="ciphertext-label">C = Ciphertext</label>
-      <input type="text" id="ciphertext" class="w-full px-3 py-2 mb-4" readonly bind:value={ciphertextText} />
+      <input type="text" id="ciphertext" class="w-full px-3 py-2 mb-4" bind:value={ciphertextText} />
     </div>
   </div>
   {#if cipherError}

@@ -71,7 +71,7 @@
 
       <div class="flex flex-col">
         <label for="plaintext" id="plaintext-label">P = Plaintext</label>
-        <input type="text" id="plaintext" class="w-full px-3 py-2" readonly bind:value={plaintextAct} />
+        <input type="text" id="plaintext" class="w-full px-3 py-2" bind:value={plaintextAct} />
       </div>
 
       <div class="flex flex-row justify-begin items-baseline gap-2">

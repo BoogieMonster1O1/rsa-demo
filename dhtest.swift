@@ -24,7 +24,9 @@ func computeSharedSecret(g: Int, p: Int, a: Int, b: Int) -> Int {
 
     // Ensure both parties compute the same shared secret
     assert(sharedSecretA == sharedSecretB)
-
+    if sharedSecretA != sharedSecretB {
+        fatalError()
+    }
     return sharedSecretA
 }
 
@@ -36,7 +38,7 @@ if let g = Int(readLine() ?? ""), g > 1 {
         // Test every possible value of a and b between 2 and p - 1
         for a in 2..<p {
             for b in 2..<p {
-                let sharedSecret = computeSharedSecret(g: g, p: p, a: a, b: b)
+                let _ = computeSharedSecret(g: g, p: p, a: a, b: b)
                 // print("For a = \(a), b = \(b), shared secret:", sharedSecret)
             }
         }
